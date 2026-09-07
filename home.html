@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dior Beauty | Cosmetics Collection</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="beauty">
+    <nav aria-label="Main navigation">
+        <div class="container">
+            <a class="nav-box" href="home.html">Welcome Home</a>
+            <div class="nav-links">
+                <a href="home.html" class="btn" aria-current="page">Home</a>
+                <a href="register.html" class="btn">Registration</a>
+                <a href="users.html" class="btn">Users</a>
+                <a href="empty.html" class="btn">Empty</a>
+                <button id="modalBtn" class="btn login-button" type="button" aria-haspopup="dialog">Login</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="beauty-main">
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">THE BEAUTY EDIT</p>
+                <h1>A little pink.<br>A little Dior.</h1>
+                <p>Discover a world of soft pinks, luminous finishes and beautiful everyday essentials.</p>
+                <a class="collection-link" href="#makeup">Explore the collection <span aria-hidden="true">↗</span></a>
+            </div>
+            <img class="hero-image" src="dior_1.jpg" alt="Pink Dior cushion compact with a bow and silver CD initials" width="640" height="640">
+        </section>
+
+        <section id="makeup" class="collection">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">YOUR EVERYDAY ESSENTIALS</p>
+                    <h2>The makeup collection</h2>
+                </div>
+                <p>Soft colour. Beautiful details.</p>
+            </div>
+            <div class="product-grid">
+                <article class="product">
+                    <img src="dior.jpg" alt="Dior four-colour glow palette with pearl, gold, pink and bronze shades" loading="lazy">
+                    <p class="eyebrow">FACE</p>
+                    <h3>Dior Glow Palette</h3>
+                    <p>Four shades of luminosity.</p>
+                </article>
+                <article class="product">
+                    <img src="dior_1.jpg" alt="Round pink Dior cushion compact" loading="lazy">
+                    <p class="eyebrow">COMPLEXION</p>
+                    <h3>Dior Cushion Compact</h3>
+                    <p>A touch of pink for your beauty ritual.</p>
+                </article>
+                <article id="lips" class="product">
+                    <img src="dior_2.jpg" alt="Pink Dior lip gloss with a silver cap and applicator" loading="lazy">
+                    <p class="eyebrow">LIPS</p>
+                    <h3>Dior Pink Lip Gloss</h3>
+                    <p>A delicate hint of colour and shine.</p>
+                </article>
+                <article class="product">
+                    <img src="dior_5.jpg" alt="Pink woven Dior lipstick case with silver lettering" loading="lazy">
+                    <p class="eyebrow">ACCESSORIES</p>
+                    <h3>Dior Lipstick Case</h3>
+                    <p>A pretty detail to carry with you.</p>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <dialog id="loginModal" class="modal" aria-labelledby="loginTitle">
+        <h2 id="loginTitle">Login</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required autofocus>
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+            <p id="loginMessage" role="alert"></p>
+            <button class="btn white" type="submit">Submit</button>
+            <button id="loginCloseBtn" class="btn white" type="button">Close</button>
+        </form>
+    </dialog>
+
+    <footer>
+        <p>JIHC © 2026</p>
+    </footer>
+    <script src="login.js"></script>
+</body>
+</html>

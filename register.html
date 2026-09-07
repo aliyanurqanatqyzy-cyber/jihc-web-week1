@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <nav>
+        <div class="container">
+            <a class="nav-box" href="home.html">Go Homepage</a>
+            <div class="nav-links">
+                <a href="home.html" class="btn">Home</a>
+                <a href="register.html" class="btn">Registration</a>
+                <a href="users.html" class="btn">Users</a>
+                <a href="empty.html" class="btn">Empty</a>
+                <button id="modalBtn" class="btn login-button" type="button" aria-haspopup="dialog">Login</button>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <h2>Registration</h2>
+        <form id="form">
+            <input type="text" id="name" required aria-label="Name" placeholder="Enter name">
+            <input type="email" id="email" required aria-label="Email" placeholder="Enter email">
+            <input type="password" id="password" required aria-label="Password" placeholder="Enter password">
+            <button type="submit" class="btn white">Submit</button>
+        </form>
+    </main>
+    <footer>
+        <p>JIHC © 2026</p>
+    </footer>
+    <dialog id="messageModal" class="modal" aria-labelledby="message">
+        <p id="message"></p>
+        <button id="closeBtn" class="btn" type="button">Close</button>
+    </dialog>
+    <script>
+        let form = document.getElementById("form");
+        let nameInput = document.getElementById("name");
+        let emailInput = document.getElementById("email");
+        let passwordInput = document.getElementById("password");
+        let messageModal = document.getElementById("messageModal");
+        let messageText = document.getElementById("message");
+        let closeButton = document.getElementById("closeBtn");
+
+        function showMessage(message) {
+            messageText.textContent = message;
+            messageModal.showModal();
+        }
+
+        closeButton.onclick = function () {
+            messageModal.close();
+        };
+
+        form.onsubmit = function (event) {
+            event.preventDefault();
+
+            let name = nameInput.value;
+            name = name.trim();
+
+            let email = emailInput.value;
+            email = email.trim();
+            email = email.toLowerCase();
+
+            let password = passwordInput.value;
+            let passwordWithoutSpaces = password.trim();
+
+            if (name === "") {
+                showMessage("Please enter your name.");
+                return;
+            }
+
+            if (email === "") {
+                showMessage("Please enter your email.");
+                return;
+            }
+
+            if (passwordWithoutSpaces === "") {
+                showMessage("Please enter your password.");
+                return;
+            }
+
+            let savedUsers = localStorage.getItem("users");
+            let users = [];
+
+            if (savedUsers !== null) {
+                users = JSON.parse(savedUsers);
+            }
+
+            let userNumber = 0;
+
+            while (userNumber < users.length) {
+                let user = users[userNumber];
+                let savedEmail = user.email.trim();
+                savedEmail = savedEmail.toLowerCase();
+
+                if (savedEmail === email) {
+                    showMessage("This email is already registered.");
+                    return;
+                }
+
+                userNumber = userNumber + 1;
+            }
+
+            let newUser = {};
+            newUser.name = name;
+            newUser.email = email;
+            newUser.password = password;
+            users.push(newUser);
+
+            let usersAsText = JSON.stringify(users);
+            localStorage.setItem("users", usersAsText);
+
+            form.reset();
+            showMessage("Registration completed successfully.");
+        };
+    </script>
+    <dialog id="loginModal" class="modal" aria-labelledby="loginTitle">
+        <h2 id="loginTitle">Login</h2>
+        <form id="loginForm">
+            <label for="loginEmail">Email</label>
+            <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required autofocus>
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
+            <p id="loginMessage" role="alert"></p>
+            <button class="btn white" type="submit">Submit</button>
+            <button id="loginCloseBtn" class="btn white" type="button">Close</button>
+        </form>
+    </dialog>
+    <script src="login.js"></script>
+</body>
+
+</html>
