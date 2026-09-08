@@ -1,73 +1,102 @@
+function loadUsers() {
+    let text = localStorage.getItem("users");
+    return JSON.parse(text) || [];
+}
+
+function saveUsers(userList) {
+    localStorage.setItem("users", JSON.stringify(userList));
+}
+
+function showAlert(message) {
+    return showModal(message);
+}
+
+let messageReturnFocus;
+
+function showModal(message) {
+    messageReturnFocus = document.activeElement;
+    document.getElementById("ModalText").textContent = message;
+    document.getElementById("Modal").style.display = "flex";
+    document.getElementById("ModalCloseBtn").focus();
+    return message;
+}
+
+function closeModal() {
+    document.getElementById("Modal").style.display = "none";
+    messageReturnFocus.focus();
+}
+
 let loginModal = document.getElementById("loginModal");
-let loginButton = document.getElementById("modalBtn");
-let loginCloseButton = document.getElementById("loginCloseBtn");
 let loginForm = document.getElementById("loginForm");
-let loginEmailInput = document.getElementById("loginEmail");
-let loginPasswordInput = document.getElementById("loginPassword");
-let loginMessage = document.getElementById("loginMessage");
 
-loginButton.onclick = function () {
-    loginMessage.textContent = "";
-    loginModal.showModal();
+document.getElementById("modalBtn").onclick = function () {
+    loginModal.style.display = "flex";
+    document.getElementById("loginEmail").focus();
 };
 
-loginCloseButton.onclick = function () {
-    loginModal.close();
-};
+function closeLogin() {
+    loginModal.style.display = "none";
+    document.getElementById("loginPassword").value = "";
+    document.getElementById("modalBtn").focus();
+}
 
-loginModal.onclose = function () {
-    loginPasswordInput.value = "";
-};
+document.getElementById("loginCloseBtn").onclick = closeLogin;
 
-loginForm.onsubmit = function (event) {
+document.getElementById("ModalCloseBtn").onclick = closeModal;
+
+loginForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    loginMessage.textContent = "";
 
-    let email = loginEmailInput.value;
-    email = email.trim();
-    email = email.toLowerCase();
+    let email = document.getElementById("loginEmail").value.trim().toLowerCase();
+    let password = document.getElementById("loginPassword").value;
+    let users = loadUsers();
 
-    let password = loginPasswordInput.value;
-    let passwordWithoutSpaces = password.trim();
+    if (email === "" || password.trim() === "") {
+        return showAlert("Please enter your email and password.");
+    }
 
-    if (email === "") {
-        loginMessage.textContent = "Please enter your email.";
+    let user = users.find(function (user) {
+        return user.email.trim().toLowerCase() === email && user.password === password;
+    });
+
+    if (!user) {
+        return showAlert("Wrong email or password.");
+    }
+
+    localStorage.setItem("currentUser", JSON.stringify(user));
+    closeLogin();
+
+    return showModal("Hello, " + user.name + "!");
+});
+
+document.addEventListener("keydown", function (event) {
+    let popup = document.getElementById("Modal");
+    if (popup.style.display !== "flex") {
+        popup = loginModal;
+    }
+    if (popup.style.display !== "flex") {
         return;
     }
 
-    if (passwordWithoutSpaces === "") {
-        loginMessage.textContent = "Please enter your password.";
-        return;
-    }
-
-    let savedUsers = localStorage.getItem("users");
-    let users = [];
-
-    if (savedUsers !== null) {
-        users = JSON.parse(savedUsers);
-    }
-
-    let userNumber = 0;
-    let loginIsCorrect = false;
-
-    while (userNumber < users.length) {
-        let user = users[userNumber];
-        let savedEmail = user.email.trim();
-        savedEmail = savedEmail.toLowerCase();
-
-        if (savedEmail === email) {
-            if (user.password === password) {
-                loginIsCorrect = true;
-                break;
-            }
+    if (event.key === "Escape") {
+        if (popup.id === "Modal") {
+            closeModal();
+        } else {
+            closeLogin();
         }
-
-        userNumber = userNumber + 1;
     }
 
-    if (loginIsCorrect === true) {
-        window.location.href = "users.html";
-    } else {
-        loginMessage.textContent = "Incorrect email or password.";
+    if (event.key === "Tab") {
+        let fields = popup.querySelectorAll("input, button");
+        let first = fields[0];
+        let last = fields[fields.length - 1];
+
+        if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+        }
     }
-};
+});
