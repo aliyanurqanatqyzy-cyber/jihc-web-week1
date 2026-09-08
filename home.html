@@ -6,7 +6,7 @@
     <title>Dior Beauty | Cosmetics Collection</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="beauty">
+<body>
     <nav aria-label="Main navigation">
         <div class="container">
             <a class="nav-box" href="home.html">Welcome Home</a>
@@ -15,60 +15,77 @@
                 <a href="register.html" class="btn">Registration</a>
                 <a href="users.html" class="btn">Users</a>
                 <a href="empty.html" class="btn">Empty</a>
-                <button id="modalBtn" class="btn login-button" type="button" aria-haspopup="dialog">Login</button>
+                <button id="modalBtn" class="btn login-button" type="button">Login</button>
             </div>
         </div>
     </nav>
 
-    <main class="beauty-main">
-        <section id="makeup" class="collection">
-            <h1 class="collection-title">Dior Makeup</h1>
-            <div class="product-grid">
-                <article class="product">
-                    <img src="dior.jpg" alt="Dior four-colour glow palette with pearl, gold, pink and bronze shades" loading="lazy">
-                    <p class="eyebrow">FACE</p>
-                    <h3>Dior Glow Palette</h3>
-                    <p>Four shades of luminosity.</p>
-                </article>
-                <article class="product">
-                    <img src="dior_1.jpg" alt="Round pink Dior cushion compact" loading="lazy">
-                    <p class="eyebrow">COMPLEXION</p>
-                    <h3>Dior Cushion Compact</h3>
-                    <p>A touch of pink for your beauty ritual.</p>
-                </article>
-                <article id="lips" class="product">
-                    <img src="dior_2.jpg" alt="Pink Dior lip gloss with a silver cap and applicator" loading="lazy">
-                    <p class="eyebrow">LIPS</p>
-                    <h3>Dior Pink Lip Gloss</h3>
-                    <p>A delicate hint of colour and shine.</p>
-                </article>
-                <article class="product">
-                    <img src="dior_5.jpg" alt="Pink woven Dior lipstick case with silver lettering" loading="lazy">
-                    <p class="eyebrow">ACCESSORIES</p>
-                    <h3>Dior Lipstick Case</h3>
-                    <p>A pretty detail to carry with you.</p>
-                </article>
-            </div>
-        </section>
+    <main class="shop">
+        <div class="video-banner">
+            <video class="banner" autoplay loop muted playsinline poster="dior_main.jpg" aria-label="Dior fashion video">
+                <source src="dior.mov">
+            </video>
+            <div class="video-overlay" aria-hidden="true"></div>
+        </div>
 
+        <h1>New Products</h1>
+        <div class="products">
+            <div class="product">
+                <img src="dior.jpg" alt="Dior glow palette">
+                <h2>Dior Glow Palette</h2>
+                <p>Makeup</p>
+            </div>
+            <div class="product">
+                <img src="dior_1.jpg" alt="Pink Dior cushion compact">
+                <h2>Dior Cushion Compact</h2>
+                <p>Makeup</p>
+            </div>
+            <div class="product">
+                <img src="dior_2.jpg" alt="Pink Dior lip gloss">
+                <h2>Dior Lip Gloss</h2>
+                <p>Lips</p>
+            </div>
+            <div class="product">
+                <img src="dior_3.jpg" alt="Miss Dior perfume bottle" loading="lazy">
+                <h2>Miss Dior</h2>
+                <p>Fragrance</p>
+            </div>
+            <div class="product">
+                <img src="dior_4.jpg" alt="Miss Dior body cream" loading="lazy">
+                <h2>Miss Dior Body Cream</h2>
+                <p>Body care</p>
+            </div>
+            <div class="product">
+                <img src="dior_5.jpg" alt="Pink Dior lipstick case" loading="lazy">
+                <h2>Dior Lipstick Case</h2>
+                <p>Accessories</p>
+            </div>
+        </div>
     </main>
 
-    <dialog id="loginModal" class="modal" aria-labelledby="loginTitle">
-        <h2 id="loginTitle">Login</h2>
-        <form id="loginForm">
-            <label for="loginEmail">Email</label>
-            <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required autofocus>
-            <label for="loginPassword">Password</label>
-            <input id="loginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
-            <p id="loginMessage" role="alert"></p>
-            <button class="btn white" type="submit">Submit</button>
-            <button id="loginCloseBtn" class="btn white" type="button">Close</button>
-        </form>
-    </dialog>
+    <div id="loginModal" class="popup" aria-labelledby="loginTitle" role="dialog" aria-modal="true">
+        <div class="modal">
+            <h2 id="loginTitle">Login</h2>
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required>
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="password" type="password" placeholder="Password" required>
+                <button class="btn white" type="submit">Submit</button>
+                <button id="loginCloseBtn" class="btn white" >Close</button>
+            </form>
+        </div>
+    </div>
 
     <footer>
         <p>JIHC © 2026</p>
     </footer>
+    <div id="Modal" class="popup" >
+        <div class="modal">
+            <p id="ModalText"></p>
+            <button id="ModalCloseBtn" class="btn white" >Close</button>
+        </div>
+    </div>
     <script src="login.js"></script>
 </body>
 </html>
