@@ -17,7 +17,7 @@
                 <a href="register.html" class="btn">Registration</a>
                 <a href="users.html" class="btn">Users</a>
                 <a href="empty.html" class="btn">Empty</a>
-                <button id="modalBtn" class="btn login-button" type="button" aria-haspopup="dialog">Login</button>
+                <button id="modalBtn" class="btn login-button" >Login</button>
             </div>
         </div>
     </nav>
@@ -37,55 +37,27 @@
     <footer>
         <p>JIHC © 2026</p>
     </footer>
-    <script>
-        let table = document.getElementById("table");
-
-        let savedUsers = localStorage.getItem("users");
-        let users = [];
-
-        if (savedUsers !== null) {
-            users = JSON.parse(savedUsers);
-        }
-
-        if (users.length === 0) {
-            let emptyRow = table.insertRow();
-            let emptyCell = emptyRow.insertCell();
-            emptyCell.colSpan = 3;
-            emptyCell.className = "text-center";
-            emptyCell.textContent = "No registered users.";
-        }
-
-        let userNumber = 0;
-
-        while (userNumber < users.length) {
-            let user = users[userNumber];
-            let row = table.insertRow();
-
-            let numberCell = row.insertCell();
-            numberCell.textContent = userNumber + 1;
-
-            let nameCell = row.insertCell();
-            nameCell.textContent = user.name;
-
-            let emailCell = row.insertCell();
-            emailCell.textContent = user.email;
-
-            userNumber = userNumber + 1;
-        }
-    </script>
-    <dialog id="loginModal" class="modal" aria-labelledby="loginTitle">
-        <h2 id="loginTitle">Login</h2>
-        <form id="loginForm">
-            <label for="loginEmail">Email</label>
-            <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required autofocus>
-            <label for="loginPassword">Password</label>
-            <input id="loginPassword" name="password" type="password" placeholder="Password" autocomplete="current-password" required>
-            <p id="loginMessage" role="alert"></p>
-            <button class="btn white" type="submit">Submit</button>
-            <button id="loginCloseBtn" class="btn white" type="button">Close</button>
-        </form>
-    </dialog>
+    <div id="loginModal" class="popup" >
+        <div class="modal">
+            <h2 id="loginTitle">Login</h2>
+            <form id="loginForm">
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" name="email" type="email" placeholder="Email" autocomplete="username" required>
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" name="password" type="password" placeholder="Password" required>
+                <button class="btn white" type="submit">Submit</button>
+                <button id="loginCloseBtn" class="btn white" >Close</button>
+            </form>
+        </div>
+    </div>
+    <div id="Modal" class="popup" >
+        <div class="modal">
+            <p id="ModalText"></p>
+            <button id="ModalCloseBtn" class="btn white">Close</button>
+        </div>
+    </div>
     <script src="login.js"></script>
+    <script src="users.js"></script>
 </body>
 
 </html>
